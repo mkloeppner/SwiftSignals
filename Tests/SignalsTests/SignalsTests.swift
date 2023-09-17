@@ -1,11 +1,32 @@
 import XCTest
 @testable import Signals
 
-final class SignalsTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Signals().text, "Hello, World!")
+final class TestContext: Observer {
+    var _update: Int = 0
+    var _updated: Int = 0
+    func notify() {
+        self._update += 1
     }
+    
+    func notified() {
+        self._updated += 1
+    }
+    
+}
+
+final class TestTransaction: Transaction {
+    var modifications: [() -> Void] = []
+    
+    var updates: [() -> Void] = []
+    
+    var finished: [() -> Void] = []
+}
+
+struct User {
+    let username: String
+    let password: String
+}
+
+final class SignalsTests: XCTestCase {
+
 }
